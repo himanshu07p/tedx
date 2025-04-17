@@ -68,6 +68,8 @@
 
 .nav-item {
     margin: 0 5px;
+    display: flex; /* Add flex to nav-item */
+    align-items: center; /* Vertically center content */
 }
 
 .nav-link {
@@ -263,6 +265,7 @@
     
     /* Register button in mobile menu */
     .nav-item.mobile-only {
+        display: none; /* Hide the mobile-only register button */
         margin-top: 20px;
     }
     
