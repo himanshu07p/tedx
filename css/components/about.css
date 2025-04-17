@@ -1,0 +1,148 @@
+.about {
+    padding: 70px 0;
+    background-color: #000;
+    color: #fff;
+}
+
+.about .container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.about .section-title h1 {
+    font-size: 2.8em;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.about p {
+    font-size: 1.1em;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.about h2 {
+    font-size: 2em;
+    margin: 40px 0 20px;
+    color: #EB0028;
+    font-weight: 600;
+}
+
+.about-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 40px 0;
+    gap: 40px;
+}
+
+.about-text {
+    flex: 1;
+}
+
+.about-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.about-image img {
+    max-width: 100%;
+    height: auto;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+}
+
+.about-image img:hover {
+    filter: grayscale(0%);
+}
+
+.about-section {
+    padding: 100px 0;
+    background-color: #fff;
+    color: #000;
+}
+
+.about-section .section-title h2 {
+    color: #000;
+}
+
+.about-section .section-title h2::after {
+    background-color: #EB0028;
+    left: 0;
+    transform: none;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.about-text p {
+    margin-bottom: 24px;
+    line-height: 1.8;
+}
+
+.large-text {
+    font-size: 1.8rem;
+    line-height: 1.5;
+    font-weight: 300;
+    margin-bottom: 30px;
+}
+
+.about-video {
+    position: relative;
+}
+
+.video-placeholder {
+    background-color: #000;
+    aspect-ratio: 16/9;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.play-icon {
+    color: #EB0028;
+    font-size: 3rem;
+    transition: all 0.3s ease;
+}
+
+.video-placeholder:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.video-placeholder:hover .play-icon {
+    transform: scale(1.2);
+}
+
+.video-caption {
+    text-align: center;
+    margin-top: 16px;
+    font-weight: 500;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .about-content {
+        flex-direction: column;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .large-text {
+        font-size: 1.5rem;
+    }
+    
+    .about-video {
+        order: -1;
+    }
+}

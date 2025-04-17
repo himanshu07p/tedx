@@ -1,0 +1,192 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 15px 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    border-bottom: 2px solid #EB0028;
+}
+
+.header.scrolled {
+    padding: 10px 0;
+    background-color: rgba(0, 0, 0, 0.95);
+}
+
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.logo a {
+    display: flex;
+    flex-direction: column; /* Keep column for logo + subtext */
+    align-items: center; /* Center items */
+    color: #fff;
+    text-decoration: none;
+}
+
+.logo-text { /* This now contains TED and the superscript x */
+    font-size: 28px; /* Adjust base size */
+    font-weight: 900; /* Bold TED */
+    letter-spacing: 1px;
+    color: #EB0028; /* TED color */
+    line-height: 1; /* Adjust line height */
+}
+
+.logo-x { /* Style the superscript x */
+    font-size: 0.6em; /* Relative size for superscript */
+    font-weight: 700; /* Slightly less bold than TED */
+    vertical-align: super; /* Ensure proper superscript alignment */
+    margin-left: 1px; /* Small space after TED */
+    color: #EB0028; /* x color */
+}
+
+.logo-subtext {
+    font-size: 10px; /* Adjust size */
+    text-transform: uppercase;
+    letter-spacing: 1.5px; /* Adjust spacing */
+    color: #fff;
+    margin-top: 4px; /* Space between logo and subtext */
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    margin: 0 5px;
+}
+
+.nav-link {
+    display: block;
+    padding: 8px 15px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    position: relative;
+}
+
+.nav-link:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #EB0028;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-link:hover:after,
+.nav-link.active:after {
+    width: 70%;
+}
+
+.register-btn {
+    background-color: #EB0028;
+    color: #fff;
+    padding: 8px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: 2px solid #EB0028;
+}
+
+.register-btn:hover {
+    background-color: transparent;
+    color: #EB0028;
+}
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+}
+
+.nav-toggle span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 992px) {
+    .nav-toggle {
+        display: flex;
+    }
+
+    .main-nav {
+        position: fixed;
+        top: 70px; /* Height of header */
+        left: -100%;
+        width: 80%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.95);
+        flex-direction: column;
+        padding: 40px;
+        transition: all 0.5s ease;
+    }
+
+    .main-nav.active {
+        left: 0;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nav-item {
+        margin: 10px 0;
+        width: 100%;
+    }
+
+    .nav-link {
+        padding: 15px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-toggle.active span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+
+    .nav-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .nav-toggle.active span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+}
+
+/* Add extra padding to body for fixed header */
+body {
+    padding-top: 70px;
+}
