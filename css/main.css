@@ -83,10 +83,10 @@ h1, h2, h3 {
 section {
     scroll-margin-top: 80px;
     position: relative;
-    padding: 100px 0;
+    padding: 80px 0; /* Reduced default padding */
     overflow: hidden;
-    border-top: 1px solid transparent; /* Allow for margin-top: -1px to work properly */
-    margin: 0; /* Remove any margins between sections */
+    border-top: none; /* Remove transparent border that might be causing the strip */
+    margin: 0;
 }
 
 /* Remove hero and first section border */
@@ -94,6 +94,7 @@ section {
     display: none;
 }
 
+/* Adjust the section alternating style */
 section:nth-of-type(odd) {
     background-color: #000;
     color: #fff;
@@ -111,14 +112,31 @@ section:nth-of-type(even) h3 {
     color: #000;
 }
 
-/* Remove section dividers that cause thin lines */
+/* Remove the gap between quotes and contact sections specifically */
+#quotes {
+    padding-top: 60px; /* Reduced top padding specifically for quotes */
+    padding-bottom: 0; /* Keep bottom padding removed */
+}
+
+#contact {
+    padding-top: 0; /* Remove top padding from contact section */
+    padding-bottom: 0 !important; /* Force no padding with !important */
+    margin-bottom: 0 !important; /* Force no margin with !important */
+    border-bottom: none !important; /* Force no border with !important */
+    font-size: 0; /* Eliminate any text node spacing */
+}
+
+/* Remove any other potential dividers */
+section::before,
 section::after {
     display: none;
 }
 
-/* Remove the divider styling since we're moving quotes to their own section */
-.divider {
-    display: none; /* Hide the dividers since we have a dedicated quotes section now */
+/* Footer adjustments to remove gap */
+#footer {
+    margin-top: -1px !important; /* Negative margin to pull up footer */
+    background-color: #111 !important; /* Ensure the footer background color */
+    border: none !important; /* Ensure no borders */
 }
 
 /* Event details section */
@@ -191,17 +209,66 @@ html {
 
 /* Responsive styles */
 @media (max-width: 768px) {
+    body {
+        padding-top: 60px; /* Reduced padding for mobile header height */
+    }
+    
     section {
-        padding: 60px 0;
+        padding: 40px 0; /* Reduced mobile section padding */
         margin: 0;
     }
     
     .event-meta {
         flex-direction: column;
-        gap: 20px;
+        gap: 15px;
+        margin-bottom: 30px;
+        font-size: 1rem; /* Slightly smaller font */
+        text-align: center; /* Center align text on mobile */
     }
     
-    .divider {
-        padding: 40px 0;
+    .btn-large {
+        width: 90%; /* Wider buttons on mobile */
+        max-width: 280px;
+        padding: 15px 20px;
+        font-size: 1rem;
+    }
+    
+    .container {
+        width: 95%; /* More width on mobile */
+        padding: 0 10px;
+    }
+    
+    h1 {
+        font-size: 2.3rem; /* Smaller heading size */
+    }
+    
+    h2 {
+        font-size: 1.8rem;
+    }
+    
+    /* Adjust spacing between sections */
+    #event-details {
+        padding-top: 20px;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    section {
+        padding: 30px 0; /* Further reduced padding */
+    }
+    
+    .btn-large {
+        width: 100%;
+        font-size: 0.9rem;
+        padding: 12px 15px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.6rem;
     }
 }

@@ -4,6 +4,8 @@
     padding: 60px 0 30px;
     font-family: var(--font-primary, 'Helvetica Neue', sans-serif);
     line-height: 1.6;
+    margin-top: 0; /* Ensure no top margin causing a gap */
+    border-top: none; /* Remove any top border */
 }
 
 .footer-content {

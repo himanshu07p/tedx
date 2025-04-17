@@ -1,94 +1,90 @@
-const heroSection = () => {
-    const heroContainer = document.createElement('div');
-    heroContainer.classList.add('hero');
-
-    const video = document.createElement('video');
-    video.src = 'path/to/your/video.mp4'; // Replace with the actual video path
-    video.autoplay = true;
-    video.loop = true;
-    video.muted = true;
-    video.classList.add('hero-video');
-
-    const overlay = document.createElement('div');
-    overlay.classList.add('hero-overlay');
-
-    const title = document.createElement('h1');
-    title.textContent = 'Welcome to TEDx College Conference';
-    title.classList.add('hero-title');
-
-    const subtitle = document.createElement('p');
-    subtitle.textContent = 'Inspiring Ideas Worth Spreading';
-    subtitle.classList.add('hero-subtitle');
-
-    overlay.appendChild(title);
-    overlay.appendChild(subtitle);
-    heroContainer.appendChild(video);
-    heroContainer.appendChild(overlay);
-
-    document.body.prepend(heroContainer);
-};
-
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Hero section loaded with video background');
+    console.log('Hero section initializing...');
     
     // Check if the hero element exists
     const heroContainer = document.querySelector('.hero');
     if (!heroContainer) return;
     
-    // Check if there's already a video element
+    // Initialize the video element
+    initializeHeroVideo(heroContainer);
+});
+
+// Custom event listener for when the hero section is dynamically loaded
+document.addEventListener('heroLoaded', () => {
+    console.log('Hero loaded event triggered');
+    const heroContainer = document.querySelector('.hero');
+    if (heroContainer) {
+        initializeHeroVideo(heroContainer);
+    }
+});
+
+function initializeHeroVideo(heroContainer) {
+    console.log('Initializing hero video');
     let videoElement = heroContainer.querySelector('video');
     
-    // If no video element exists, create one
     if (!videoElement) {
+        console.log('No video element found, creating one');
         videoElement = document.createElement('video');
-        videoElement.autoplay = true;
-        videoElement.loop = true;
-        videoElement.muted = true;
-        videoElement.playsInline = true;
-        videoElement.classList.add('hero-video');
-        
-        // Add source
-        const source = document.createElement('source');
-        source.src = 'assets/video/hero-video.mp4';
-        source.type = 'video/mp4';
-        
-        videoElement.appendChild(source);
-        videoElement.appendChild(document.createTextNode('Your browser does not support the video tag.'));
-        
-        // Insert video before the overlay
-        const overlay = heroContainer.querySelector('.hero-overlay');
-        if (overlay) {
-            heroContainer.insertBefore(videoElement, overlay);
-        }
-    } else {
-        // If video element exists, ensure it has the proper attributes
-        videoElement.autoplay = true;
-        videoElement.loop = true;
-        videoElement.muted = true;
-        videoElement.playsInline = true;
-        
-        // Make sure the video is visible and has proper classes
-        videoElement.style.display = 'block';
-        videoElement.classList.add('hero-video');
-        
-        // Check if source exists, if not add it
-        if (videoElement.querySelector('source') === null) {
-            const source = document.createElement('source');
-            source.src = 'assets/video/hero-video.mp4';
-            source.type = 'video/mp4';
-            videoElement.appendChild(source);
-        }
+        heroContainer.prepend(videoElement);
     }
     
-    // Force play video (helpful for some mobile browsers)
-    videoElement.play();
+    // Set video attributes
+    videoElement.muted = true;
+    videoElement.autoplay = true;
+    videoElement.loop = true;
+    videoElement.playsInline = true;
+    videoElement.classList.add('hero-video');
     
-    // Log video status for debugging
-    videoElement.addEventListener('play', () => {
-        console.log('Video started playing');
+    // Set poster image for initial display
+    if (!videoElement.poster) {
+        videoElement.poster = 'assets/images/hero-poster.jpg';
+    }
+    
+    // Get source element
+    let sourceElement = videoElement.querySelector('source');
+    if (!sourceElement) {
+        sourceElement = document.createElement('source');
+        videoElement.appendChild(sourceElement);
+    }
+    
+    // Get video path based on viewport size
+    const videoPath = window.innerWidth <= 768 ? 
+        'assets/video/hero-mobile.mp4' : 'assets/video/hero.mp4';
+        
+    // Set the actual source (from data-src if it exists)
+    const existingDataSrc = sourceElement.getAttribute('data-src');
+    sourceElement.src = existingDataSrc || videoPath;
+    sourceElement.type = 'video/mp4';
+    
+    // Remove data-src to prevent double loading
+    if (existingDataSrc) {
+        sourceElement.removeAttribute('data-src');
+    }
+    
+    // Make sure the video is explicitly visible
+    videoElement.style.display = 'block';
+    videoElement.style.width = '100%';
+    videoElement.style.height = '100%';
+    videoElement.style.objectFit = 'cover';
+    
+    // Load and play the video
+    videoElement.load();
+    
+    // Track video progress
+    videoElement.addEventListener('loadeddata', () => {
+        console.log('Hero video loaded successfully');
+        videoElement.play()
+            .then(() => {
+                console.log('Hero video playing');
+                videoElement.setAttribute('data-loaded', 'true');
+            })
+            .catch(error => {
+                console.error('Error playing video:', error);
+            });
     });
     
+    // Log any errors
     videoElement.addEventListener('error', (e) => {
         console.error('Video error:', e);
     });
-});
+}

@@ -14,8 +14,16 @@
             </div>
             
             <div class="about-video">
-                <div class="video-placeholder">
-                    <span class="play-icon">▶</span>
+                <div class="video-container">
+                    <video id="aboutVideo" class="video-placeholder">
+                        <source data-src="assets/video/play.mp4" type="video/mp4">
+                        Your browser does not support HTML5 video.
+                    </video>
+                    <div class="custom-play-button" id="customPlayBtn">
+                        <svg width="50" height="50" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z" fill="#EB0028"/>
+                        </svg>
+                    </div>
                 </div>
                 <p class="video-caption">What is TEDx?</p>
             </div>

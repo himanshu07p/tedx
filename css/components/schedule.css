@@ -91,11 +91,73 @@
 }
 
 @media (max-width: 768px) {
+    .schedule {
+        padding: 30px 10px;
+    }
+    
     .schedule table {
         font-size: 14px;
+        border-collapse: separate;
+        border-spacing: 0;
+        display: block;
+        overflow-x: auto; /* Enable horizontal scrolling */
     }
     
     .schedule th, .schedule td {
-        padding: 10px;
+        padding: 10px 12px;
+        min-width: 100px; /* Ensure minimum width */
+    }
+}
+
+@media (max-width: 600px) {
+    /* Card-style layout for very small screens */
+    .schedule table, 
+    .schedule thead, 
+    .schedule tbody, 
+    .schedule th, 
+    .schedule td, 
+    .schedule tr { 
+        display: block; 
+    }
+    
+    .schedule thead tr { 
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    
+    .schedule tr {
+        margin-bottom: 15px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        position: relative;
+        padding-top: 10px;
+    }
+    
+    .schedule td { 
+        border: none;
+        position: relative;
+        padding: 8px 8px 8px 50%;
+    }
+    
+    .schedule td:before { 
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        width: 45%; 
+        padding-right: 10px;
+        font-weight: bold;
+        content: attr(data-label);
+        color: #EB0028;
+    }
+    
+    /* Custom attributes for data labels */
+    .schedule td:nth-of-type(1):before { content: "Time"; }
+    .schedule td:nth-of-type(2):before { content: "Session"; }
+    .schedule td:nth-of-type(3):before { content: "Speaker"; }
+    
+    .schedule td:first-child {
+        border-top: none;
     }
 }

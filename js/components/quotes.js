@@ -2,19 +2,19 @@ document.addEventListener('quotesLoaded', () => {
     const quotes = [
         {
             text: "The power of ideas to change attitudes, lives and ultimately, the world.",
-            attribution: "— TEDx Mission"
+            attribution: "TEDx Mission"
         },
         {
             text: "Ideas are the currency of the 21st century.",
-            attribution: "— TED Curator"
+            attribution: "TED Curator"
         },
         {
             text: "Your time is limited, so don't waste it living someone else's life.",
-            attribution: "— Steve Jobs"
+            attribution: "Steve Jobs"
         },
         {
             text: "The only way to do great work is to love what you do.",
-            attribution: "— Steve Jobs"
+            attribution: "Steve Jobs"
         }
         // Add more quotes as needed
     ];
@@ -79,4 +79,41 @@ document.addEventListener('DOMContentLoaded', () => {
          const event = new CustomEvent('quotesLoaded');
          document.dispatchEvent(event);
     }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize quotes functionality if needed (e.g., slider)
+    console.log("Quotes component script loaded.");
+    
+    // Example: If you plan to have multiple quotes later
+    // const quotes = [
+    //     { text: "Quote 1...", author: "Author 1" },
+    //     { text: "Quote 2...", author: "Author 2" }
+    // ];
+    // let currentQuoteIndex = 0;
+    // const quoteTextElement = document.getElementById('quote-text-display');
+    // const quoteAttrElement = document.getElementById('quote-attribution-display');
+
+    // function displayQuote(index) {
+    //     if (!quoteTextElement || !quoteAttrElement) return;
+    //     quoteTextElement.textContent = `"${quotes[index].text}"`;
+    //     quoteAttrElement.textContent = `— ${quotes[index].author}`;
+    // }
+
+    // Initial display (if using dynamic quotes)
+    // displayQuote(currentQuoteIndex);
+
+    // Add event listeners for next/prev buttons if they exist
+    // const prevBtn = document.getElementById('prev-quote');
+    // const nextBtn = document.getElementById('next-quote');
+    // if (prevBtn && nextBtn) {
+    //     prevBtn.addEventListener('click', () => { /* logic */ });
+    //     nextBtn.addEventListener('click', () => { /* logic */ });
+    // }
+});
+
+// Handle dynamic loading
+document.addEventListener('quotesLoaded', () => {
+    console.log("Quotes component dynamically loaded.");
+    // Re-run initialization if necessary
 });

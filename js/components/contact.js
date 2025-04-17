@@ -1,73 +1,95 @@
 // This file contains JavaScript for the contact section, managing form submissions or interactions.
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize EmailJS (replace YOUR_USER_ID with your actual EmailJS user ID)
+    // Initialize EmailJS with your user ID
     emailjs.init("YOUR_USER_ID");
     
+    // Form submission handler
     const contactForm = document.getElementById('contact-form');
+    const messageContainer = document.getElementById('form-message');
     
     if (contactForm) {
         contactForm.addEventListener('submit', function(event) {
             event.preventDefault();
             
-            // Get the submit button
-            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            // Get the submit button and show loading state
+            const submitBtn = contactForm.querySelector('.submit-btn');
+            const submitBtnText = submitBtn.querySelector('span');
+            const submitBtnIcon = submitBtn.querySelector('i');
             
-            // Disable button and show loading state
+            // Update button to loading state
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Sending...';
+            submitBtnText.textContent = 'Sending...';
+            submitBtnIcon.className = 'fas fa-spinner fa-spin';
             
-            // Prepare template parameters from form data
+            // Prepare data for EmailJS
             const templateParams = {
                 name: contactForm.name.value,
                 email: contactForm.email.value,
+                subject: contactForm.subject ? contactForm.subject.value : 'Contact Form Message',
                 message: contactForm.message.value
             };
             
             // Send email using EmailJS
-            // Replace YOUR_SERVICE_ID and YOUR_TEMPLATE_ID with your actual values
             emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
                 .then(function(response) {
                     console.log('Email sent successfully!', response.status, response.text);
-                    showMessage('Thank you! Your message has been sent.', 'success');
+                    showMessage('Thank you! Your message has been sent. We\'ll get back to you soon.', 'success');
                     contactForm.reset();
                 })
                 .catch(function(error) {
                     console.error('Failed to send email:', error);
-                    showMessage('Failed to send message. Please try again later.', 'error');
+                    showMessage('Unable to send your message. Please try again later.', 'error');
                 })
                 .finally(function() {
-                    // Re-enable button and restore original text
+                    // Restore button to original state
                     submitBtn.disabled = false;
-                    submitBtn.textContent = 'Send Message';
+                    submitBtnText.textContent = 'Send Message';
+                    submitBtnIcon.className = 'fas fa-paper-plane';
                 });
         });
     }
     
     // Helper function to show status messages
     function showMessage(message, type) {
-        // Create message element
-        const messageEl = document.createElement('div');
-        messageEl.className = `form-message ${type}`;
-        messageEl.textContent = message;
+        if (!messageContainer) return;
         
-        // Add styling to the message
-        if (type === 'success') {
-            messageEl.style.color = '#4CAF50';
-        } else {
-            messageEl.style.color = '#F44336';
-        }
-        messageEl.style.padding = '15px';
-        messageEl.style.marginTop = '20px';
-        messageEl.style.fontWeight = '500';
+        messageContainer.textContent = message;
+        messageContainer.className = `form-message ${type}`;
+        messageContainer.style.display = 'block';
         
-        // Insert the message after the form
-        const formParent = contactForm.parentNode;
-        formParent.insertBefore(messageEl, contactForm.nextSibling);
+        // Add subtle animation
+        messageContainer.style.animation = 'fadeIn 0.5s';
         
-        // Remove the message after 5 seconds
+        // Automatically hide after 6 seconds
         setTimeout(() => {
-            messageEl.remove();
-        }, 5000);
+            messageContainer.style.animation = 'fadeOut 0.5s forwards';
+            setTimeout(() => {
+                messageContainer.style.display = 'none';
+            }, 500);
+        }, 6000);
     }
+    
+    // Add input focus effects
+    const formInputs = document.querySelectorAll('.contact-form input, .contact-form textarea');
+    formInputs.forEach(input => {
+        const label = input.previousElementSibling;
+        
+        // Add animation when input is focused
+        input.addEventListener('focus', () => {
+            input.parentElement.classList.add('focused');
+        });
+        
+        // Remove animation when input loses focus
+        input.addEventListener('blur', () => {
+            if (!input.value) {
+                input.parentElement.classList.remove('focused');
+            }
+        });
+        
+        // Check if input has value on load
+        if (input.value) {
+            input.parentElement.classList.add('focused');
+        }
+    });
 });
