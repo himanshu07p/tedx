@@ -172,6 +172,11 @@
         font-size: 0.9rem;
     }
     
+    /* Target the placeholder text specifically */
+    .contact-form textarea::placeholder {
+        font-size: 0.9rem; /* Match input font size */
+    }
+    
     .submit-btn {
         width: 100%;
         padding: 12px 20px;

@@ -138,24 +138,37 @@
     .schedule td { 
         border: none;
         position: relative;
-        padding: 8px 8px 8px 50%;
+        padding: 8px 8px 8px 45%; /* Adjust left padding to make more room */
+        min-height: 30px; /* Ensure minimum height for alignment */
+        display: flex; /* Use flexbox for better alignment */
+        align-items: center; /* Vertically center content */
+        word-break: break-word; /* Allow long words to break */
     }
     
     .schedule td:before { 
         position: absolute;
         top: 8px;
         left: 8px;
-        width: 45%; 
+        width: 40%; /* Reduce width of the label */
         padding-right: 10px;
         font-weight: bold;
         content: attr(data-label);
         color: #EB0028;
+        white-space: nowrap; /* Prevent label text from wrapping */
     }
     
     /* Custom attributes for data labels */
     .schedule td:nth-of-type(1):before { content: "Time"; }
     .schedule td:nth-of-type(2):before { content: "Session"; }
     .schedule td:nth-of-type(3):before { content: "Speaker"; }
+    
+    .schedule td:nth-of-type(3):empty {
+        padding-left: 8px; /* Reset padding if speaker cell is empty */
+    }
+    
+    .schedule td:nth-of-type(3):empty:before {
+        display: none; /* Hide the "Speaker" label if the cell is empty */
+    }
     
     .schedule td:first-child {
         border-top: none;
